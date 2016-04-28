@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Treeview.EHR>
+
+@{
+    ViewBag.Title = "PatientList";
+    Layout = null;
+}
+
+<h2>PatientList</h2>
+
+@ViewBag.PatientListName
+<br />
+<table>
+  
+@foreach (var item in Model) {
+    <tr>
+        <td style="color:red">
+        EHR ID
+        </td>
+        <td style="color:red">
+            User ID
+        </td>
+        <td style="color:red">
+            EHR Description
+        </td>
+
+    </tr>
+    <tr>
+      
+            
+                <td>
+                    @Html.DisplayFor(modelItem => item.EHRID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+         <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EHRDescription)
+                </td>
+       
+                 
+           
+    </tr>
+}
+
+</table>
+
+  @Html.ActionLink(" Back to index", "Index","Account")

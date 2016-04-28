@@ -1,0 +1,64 @@
+﻿@model Treeview.EHR
+
+@{
+    ViewBag.Title = "UserProfileView";
+    Layout = null;
+}
+
+<h2>UserProfileView</h2>
+
+@using (Html.BeginForm("UserProfileView", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>EHR</legend>
+
+          <div style="color:red" class="editor-label">
+           EHRID : 
+        </div>
+        <div >
+            @Html.EditorFor(model => model.EHRID)
+           
+        </div>
+        <div style="color:red" class="editor-label">
+           UserID : 
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserID)
+           
+        </div>
+        <div style="color:red" class="editor-label">
+           UserName : 
+        </div>
+         <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+           
+        </div>
+
+        <div style="color:red" class="editor-label">
+           EHR Description:
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EHRDescription)
+           
+        </div>
+
+         <div class="editor-label">
+           EHR Date:
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastUpdated)
+           
+        </div>
+
+        <p>
+            <input type="submit" value="Update" />
+        </p>
+    </fieldset>
+}
+
+
+
+  @Html.ActionLink(" Back to index", "Index","Account")

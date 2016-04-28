@@ -1,0 +1,44 @@
+﻿@model Treeview.Models.ViewModel
+
+@{
+    ViewBag.Title = "ChangePermission";
+}
+
+<h2>ChangePermission</h2>
+
+@ViewBag.Name
+
+<table>
+  
+@foreach (var item in Model.allPatient) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.SupervisorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReadEHR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WriteEHR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeleteEHR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+  @Html.ActionLink(" Back to index", "Index","Account")

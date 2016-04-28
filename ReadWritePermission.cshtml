@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Treeview.EHR>
+
+@{
+    ViewBag.Title = "ReadWritePermission";
+    Layout = null;
+}
+
+<h2>ReadWritePermission</h2>
+<br />
+ <div style="color:red">You are:</div>@ViewBag.PatientListName
+<br />
+
+@* @using (Html.BeginForm("SUPUserProfileView", "Account", FormMethod.Post))
+            {
+*@
+
+ <script src="~/Scripts/Jquery-2.0.1.min.js"></script>
+     <script type="text/javascript">
+         $(document).ready(function () {
+
+             $("#btn").click(function () {
+                 var ehrid = $("#txtEHRID").val();
+                 var ehruserid = $("#txtUserID").val();
+                 var ehrdesc = $("#txtEHRDescription").val();
+                
+
+                 $.ajax({
+                     type: 'POST',
+                     url: "/account/SUPUserProfileView",
+                     data: { 'ehrid': ehrid, 'ehrdesc': ehrdesc, 'ehruserid': ehruserid },
+                     success: function (data) {
+                         successmessage = 'Data was succesfully captured';
+                         $("#div1").text(successmessage);
+                     }
+                 });
+
+             });
+
+
+         });
+
+     </script>
+
+<table>
+   <tr>
+        <td style="color:red">
+        EHR ID
+        </td>
+        <td style="color:red">
+            User ID
+        </td>
+        <td style="color:red">
+            EHR Description
+        </td>
+       
+       </tr>
+ 
+   @foreach (var item in Model)
+    {
+
+     
+    <tr>                    
+                <td>
+                   @Html.TextAreaFor(modelItem => item.EHRID, new { id = "txtEHRID" })
+                   
+                </td>
+        
+                <td>
+                     @Html.TextAreaFor(modelItem => item.UserID, new { id = "txtUserID" })
+                                   
+                </td>
+         <td>
+                   @Html.TextAreaFor(modelItem => item.UserName, new { id = "txtEHRUserName" })
+                   
+                </td>
+                <td>
+                     @Html.TextAreaFor(modelItem => item.EHRDescription, new { id = "txtEHRDescription" })
+                   
+                 </td>
+       
+                 <td>
+                    <input type="button" id="btn" value="Update" />
+                    
+                </td>
+           <td>
+                    
+                    <div id="div1"></div>
+                </td>
+            
+     
+    </tr>
+}
+
+    
+
+</table>
+            @*}*@
+@if (ViewBag.AdminRole=="admin")
+{
+    @Html.ActionLink(" CreatePermission", "CreatePermission","Account")
+}
+
+
+<br />
+
+  @Html.ActionLink(" Back to index", "Index","Account")

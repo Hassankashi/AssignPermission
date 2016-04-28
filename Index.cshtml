@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+<script src="@Url.Content("~/Scripts/jquery.webcam.js")">
+</script>
+<script>
+$("#Camera").webcam({
+width: 320,
+height: 240,
+mode: "save",
+swffile: "@Url.Content("~/Scripts/jscam.swf")",
+onTick: function () { },
+onSave: function () {
+},
+onCapture: function () {
+webcam.save("@Url.Content("~/Home/Capture")/");
+},
+debug: function () { },
+onLoad: function () { }
+});
+
+</script>
+
+}
+
+<h2>Index</h2>
+
+<div id="Camera"></div>
+
+<canvas id="received" width="300" height="300" style="border: solid 1px black"></canvas>

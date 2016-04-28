@@ -1,0 +1,50 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Camera capture</title>
+    <script>
+        var localStream;
+        var localStreamObjUrl;
+        try
+        {
+            window.onload = function () {
+                //navigator.webkitGetUserMedia("audio, video", gotStream);
+                //navigator.getUserMedia_ = (navigator.getUserMedia
+                //               || navigator.webkitGetUserMedia
+                //               || navigator.mozGetUserMedia
+                //               || navigator.msGetUserMedia);
+                navigator.webkitGetUserMedia({ audio: true, video: true }, successCallback, errorCallback);
+            }
+        }
+
+        catch (e) {
+            navigator.webkitGetUserMedia("video,audio", successCallback, errorCallback);
+        }
+
+        function successCallback(stream) {
+            sourcevid.src = window.webkitURL.createObjectURL(stream);
+            sourcevid.style.webkitTransform = "rotateY(180deg)";
+            localStream = stream;
+        }
+
+        function errorCallback(error) {
+            logg('An error occurred: [CODE ' + error.code + ']');
+        }
+            //if (!!navigator.getUserMedia_) {
+            //    navigator.getUserMedia_('video', successCallback, errorCallback);
+            //}
+            //function gotStream(stream) {
+            //    localStream = stream;
+            //    localStreamObjUrl = webkitURL.createObjectURL(localStream);
+            //    var video = document.getElementById("selfView");
+            //    video.src = localStreamObjUrl;
+            //}
+       
+    </script>
+</head>
+<body>
+    <video id="selfView"  autoplay="autoplay"></video>
+</body>
+</html>

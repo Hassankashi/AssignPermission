@@ -1,0 +1,157 @@
+﻿@model Treeview.Models.ViewModel
+
+@{
+    ViewBag.Title = "CreatePermission";
+    Layout = null;
+}
+
+<h2>CreatePermission</h2>
+ <script src="~/Scripts/Jquery-2.0.1.min.js"></script>
+     <script type="text/javascript">
+         $(document).ready(function () {
+             $("#ddlfirst").change(function () {
+                 var mainId = $(this).val();
+                 $.getJSON("../account/patientview", { id: mainId },
+                       function (subGroup) {
+                           $("#ajaxDiv").empty();
+                           $.each(subGroup, function (index,  itemData) {
+                               // var link = '@Url.Action("DeletePermission","Account")';
+                               $("#ajaxDiv").append(itemData.Text +'</br>');
+                              
+                            });
+
+
+                       });
+
+             });
+
+
+             $("#btnadd").click(function () {
+                // alert( $("#ddlfirst").val());
+                 //alert( $("#ddlMainGroup").val());
+                 var ReadEHR ="";
+                 var WriteEHR="";
+                 var DeleteEHR="";
+
+                 if (  document.getElementById("ReadEHR").checked == true) {
+                     ReadEHR="true";
+                 };
+
+                 if (  document.getElementById("ReadEHR").checked == false) {
+                     ReadEHR="false";
+                 };
+
+
+                 if (  document.getElementById("WriteEHR").checked == true) {
+                     WriteEHR="true";
+                 };
+
+                 if (  document.getElementById("WriteEHR").checked == false) {
+                     WriteEHR="false";
+                 };
+
+
+                 if (  document.getElementById("DeleteEHR").checked == true) {
+                     DeleteEHR="true";
+                 };
+
+                 if (  document.getElementById("DeleteEHR").checked == false) {
+                     DeleteEHR="false";
+                 };
+
+
+                 var sid = $("#ddlfirst").val();
+                // alert($("#ddlfirst :selected").text());
+
+
+                 var pid =  $("#ddlMainGroup").val();
+                 //ReadEHR,WriteEHR,DeleteEHR
+                 var mainId = $(this).val();
+
+                 $.ajax({
+                     type:'POST',
+                     url:"/account/AddPermission",
+                     data: { 'sid': sid, 'pid': pid, 'ReadEHR': ReadEHR, 'WriteEHR': WriteEHR, 'DeleteEHR': DeleteEHR },
+                            success: function (data) {
+                             successmessage = 'Data was succesfully captured';
+                             $("#div1").text(successmessage);
+                         }
+                       
+                           });
+
+             });
+
+             $("#btnChange").click(function () {
+                 var stext = $("#ddlfirst :selected").text();
+                 var supid = $("#ddlfirst").val();
+                 $.ajax({
+                     type: 'POST',
+                     url: "/account/ChangePermission1",
+                     data: { 'supid': supid, 'stext': stext }
+                 });
+
+             });
+             
+
+                });
+               
+     </script>
+
+      <p>
+      Select Suppervisor:  @Html.DropDownListFor(model => model.UserID, new SelectList(Model.UserList, "Value", "Text"),
+
+            "Select Supervisor", new { id = "ddlfirst" })
+    </p>
+
+
+    <p>
+    Select Patient:        @Html.DropDownListFor(model => model.UserID, new SelectList(ViewBag.Patient as System.Collections.IEnumerable, "ID", "UserName"),
+
+            "Select Patient", new { id = "ddlMainGroup" })
+        </p>
+      
+
+<div></div>
+<div id="div1"></div>
+
+    <div  id="ajaxDiv">
+       
+    </div>
+<table>
+
+    <tr>
+        <td style="color:red">
+            Read EHR
+        </td>
+         <td style="color:red">
+            Write EHR
+        </td>
+         <td style="color:red">
+            Delete EHR
+        </td>
+        </tr>
+    <tr>
+        <td>
+            <input type="checkbox" value="Read EHR" id="ReadEHR" />
+        </td>
+
+         <td>
+             <input type="checkbox" value="Write EHR" id="WriteEHR" />
+        </td>
+
+         <td>
+             <input type="checkbox" value="Delete EHR" id="DeleteEHR" />
+        </td>
+    </tr>
+
+</table>
+<input type="button" id="btnadd" value="Add Permission" />
+
+
+<br />
+<br />
+
+
+  @Html.ActionLink(" Back to index", "Index","Account")
+<br />
+ @Html.ActionLink("View your profile", "ReadWritePermission","Account")

@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Mahsa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Mahsa</h2>
+<script src="http://simplewebrtc.com/latest.js"></script>
+<form method="get">
+    <input type="checkbox" name="MyLED" value="2" onclick="submit();"/>
+    <div id="local_video"></div>
+    <div id="remote_video"></div>
+</form>
+<script>
+  var webrtc = new SimpleWebRTC({
+    localVideoEl: "local_video",
+    remoteVideosEl: "remote_video",
+    autoRequestMedia: true
+  });
+
+  webrtc.on("readyToCall", function () {
+      webrtc.joinRoom("your awesome room name");
+  });
+</script>
